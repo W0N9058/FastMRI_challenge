@@ -2,6 +2,7 @@ import shutil
 import numpy as np
 import torch
 import torch.nn as nn
+from torch.optim.lr_scheduler import StepLR
 import time
 import requests
 from tqdm import tqdm
@@ -13,6 +14,7 @@ from utils.data.load_data import create_data_loaders
 from utils.common.utils import save_reconstructions, ssim_loss
 from utils.common.loss_function import SSIMLoss
 from utils.model.varnet import VarNet
+
 
 import os
 
@@ -141,6 +143,10 @@ def train(args):
 
     loss_type = SSIMLoss().to(device=device)
     optimizer = torch.optim.Adam(model.parameters(), args.lr)
+    
+    # StepLR 스케줄러 설정: step_size 에포크마다 학습률을 gamma 비율로 감소시킴
+    scheduler = StepLR(optimizer, step_size=10, gamma=0.5)  # 예: 매 10 에포크마다 학습률을 절반으로 감소
+
 
     best_val_loss = 1.
     start_epoch = 0
@@ -150,6 +156,7 @@ def train(args):
     val_loader = create_data_loaders(data_path = args.data_path_val, args = args)
     
     val_loss_log = np.empty((0, 2))
+    
     for epoch in range(start_epoch, args.num_epochs):
         print(f'Epoch #{epoch:2d} ............... {args.net_name} ...............')
         
@@ -183,3 +190,4 @@ def train(args):
             print(
                 f'ForwardTime = {time.perf_counter() - start:.4f}s',
             )
+        scheduler.step()

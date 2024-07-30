@@ -1,8 +1,11 @@
 python train.py \
   -b 1 \
   -e 5 \
-  -l 0.000005 \
+  -l 0.0001 \
   -r 10 \
   -n 'test_Varnet' \
   -t '/home/Data/train/' \
-  -v '/home/Data/val/'
+  -v '/home/Data/val/' \
+  --cascade 1 \
+  --chans 9 \
+  --sens_chans 4

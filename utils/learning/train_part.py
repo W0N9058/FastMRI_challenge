@@ -145,7 +145,7 @@ def train(args):
     optimizer = torch.optim.Adam(model.parameters(), args.lr)
     
     # StepLR 스케줄러 설정: step_size 에포크마다 학습률을 gamma 비율로 감소시킴
-    scheduler = StepLR(optimizer, step_size=10, gamma=0.5)  # 예: 매 10 에포크마다 학습률을 절반으로 감소
+    scheduler = StepLR(optimizer, step_size=10, gamma=0.3)  # 예: 매 10 에포크마다 학습률을 절반으로 감소
 
 
     best_val_loss = 1.

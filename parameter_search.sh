@@ -5,11 +5,11 @@ LOG_FILE="result.log"
 # 로그 파일 초기화
 echo "" > $LOG_FILE
 
-for cascade in $(seq 1 1)
+for cascade in $(seq 1 3)
 do
-  for chans in $(seq 8 8)
+  for chans in $(seq 8 10)
   do
-    for sens_chans in $(seq 3 3)
+    for sens_chans in $(seq 3 5)
     do
       # 모델 학습
       python train.py \

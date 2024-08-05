@@ -27,7 +27,7 @@ def init_dist(local_rank):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--local_rank', type=int, default=0)
+    parser.add_argument('--local_rank', type=int, default=int(os.environ['LOCAL_RANK']))
     args = parser.parse_args()
 
     # initialization

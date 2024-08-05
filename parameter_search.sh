@@ -14,7 +14,7 @@ do
       # 모델 학습
       python train.py \
         -b 1 \
-        -e 1 \
+        -e 3 \
         -l 0.0001 \
         -r 10 \
         -n "test_Varnet_cascade${cascade}_chans${chans}_senschans${sens_chans}" \

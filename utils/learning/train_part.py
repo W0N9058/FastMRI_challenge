@@ -15,6 +15,9 @@ from utils.common.utils import save_reconstructions, ssim_loss
 from utils.common.loss_function import SSIMLoss
 from utils.model.varnet import VarNet
 
+from utils.data.transforms import get_augmentor 
+import pytorch_lightning as pl
+
 
 import os
 
@@ -150,6 +153,13 @@ def train(args):
 
     best_val_loss = 1.
     start_epoch = 0
+    
+    # PyTorch Lightning trainer 초기화
+    # trainer = pl.Trainer(max_epochs=args.num_epochs)
+
+    # DataAugmentor 초기화
+    current_epoch_fn = lambda: trainer.current_epoch
+    augmentor = get_augmentor(args, current_epoch_fn)
 
     
     train_loader = create_data_loaders(data_path = args.data_path_train, args = args, shuffle=True)

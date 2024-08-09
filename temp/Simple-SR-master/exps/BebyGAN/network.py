@@ -9,7 +9,7 @@ import torch.nn.functional as F
 
 from utils.modules.rrdb import RRDBNet
 from utils.loss import AdversarialLoss, PerceptualLoss, BBL
-from utils.modules.discriminator import Discriminator_VGG_192
+from utils.modules.discriminator import Discriminator_VGG_384
 
 
 class Generator(RRDBNet):
@@ -21,7 +21,7 @@ class Generator(RRDBNet):
                                         gc=config.MODEL.G.N_GROWTH_CHANNEL)
 
 
-class Discriminator(Discriminator_VGG_192):
+class Discriminator(Discriminator_VGG_384): #192
     def __init__(self, config):
         super(Discriminator, self).__init__(in_chl=config.MODEL.D.IN_CHANNEL,
                                             nf=config.MODEL.D.N_CHANNEL)

@@ -264,7 +264,7 @@ class DataAugmentor:
             p = self.schedule_p()
 #             p = 1.0
             self.augmentation_pipeline.set_augmentation_strength(p)
-            print(f'Augmentation strength: {p}')
+#             print(f'Augmentation strength: {p}')
         else:
             p = 0.0
         
@@ -308,14 +308,14 @@ class DataAugmentor:
         else:
             if self.hparams.aug_schedule == 'constant':
                 p = p_max
-                print('constant')
+#                 print('constant')
             elif self.hparams.aug_schedule == 'ramp':
                 p = (t-D)/(T-D) * p_max
             elif self.hparams.aug_schedule == 'exp':
                 c = self.hparams.aug_exp_decay/(T-D)  # Decay coefficient
                 p = p_max/(1-exp(-(T-D)*c))*(1-exp(-(t-D)*c))
-                print('exp')
-            print(f'schedule_p: t={t}, p={p}')  # 디버깅 출력 추가
+#                 print('exp')
+#             print(f'schedule_p: t={t}, p={p}')  # 디버깅 출력 추가
             return p
         
     def add_augmentation_specific_args(parser):
@@ -331,7 +331,7 @@ class DataAugmentor:
         parser.add_argument(
             '--aug_schedule', 
             type=str, 
-            default='constant',
+            default='exp',
             help='Type of data augmentation strength scheduling. Options: constant, ramp, exp'
         )
         parser.add_argument(

@@ -135,6 +135,9 @@ def main():
 
         lr_img = lr_img.to(device)
         hr_img = hr_img.to(device)
+        
+#         print("lr_img.shape", lr_img.shape)
+#         print("hr_img.shape", hr_img.shape)
 
         flat_mask = region_seperator.get_flat_mask(lr_img, kernel_size=config.MODEL.FLAT_KSIZE,
                                                    std_thresh=config.MODEL.FLAT_STD,
@@ -146,7 +149,12 @@ def main():
 
         # from degraded LR to SR
         G_optimizer.zero_grad()
+        
         output = model.G(lr_img)
+        
+#         print("output.shape", output.shape)
+#         print("flat_mask.shape", flat_mask.shape)
+        
         output_det = output * (1 - flat_mask)
         hr_det = hr_img * (1 - flat_mask)
         # degrade SR to LR

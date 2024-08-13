@@ -40,7 +40,7 @@ class MixDataset(Dataset):
             for hr_file in hr_files:
                 if hr_file.endswith('.h5'):
                     with h5py.File(os.path.join(hr_path, hr_file), 'r') as f:
-                        hr_images = f['image_label'][:]  # Load HR images from 'image_label' dataset
+                        hr_images = f['target'][:]  # Load HR images from 'image_label' dataset
                         for i in range(hr_images.shape[0]):
                             self.hr_list.append(hr_images[i])
 
@@ -51,7 +51,7 @@ class MixDataset(Dataset):
             for lr_file in lr_files:
                 if lr_file.endswith('.h5'):
                     with h5py.File(os.path.join(lr_path, lr_file), 'r') as f:
-                        lr_images = f['image_grappa'][:]  # Load LR images from 'image_grappa' dataset
+                        lr_images = f['reconstruction'][:]  # Load LR images from 'image_grappa' dataset
                         for i in range(lr_images.shape[0]):
                             self.lr_list.append(lr_images[i])
 

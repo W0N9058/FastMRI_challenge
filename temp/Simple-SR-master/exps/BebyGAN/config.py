@@ -88,7 +88,7 @@ class Config:
     # both G and D
     SOLVER.WARM_UP_ITER = 2000
     SOLVER.WARM_UP_FACTOR = 0.1
-    SOLVER.T_PERIOD = [200000, 400000, 150000]
+    SOLVER.T_PERIOD = [200000, 400000, 6000]
     SOLVER.MAX_ITER = SOLVER.T_PERIOD[-1]
 
     # initialization
@@ -98,12 +98,12 @@ class Config:
     D_INIT_MODEL = None
 
     # log and save
-    LOG_PERIOD = 20
-    SAVE_PERIOD = 5000
+    LOG_PERIOD = 500
+    SAVE_PERIOD = 500
 
     # validation
     VAL = edict()
-    VAL.PERIOD = 5000
+    VAL.PERIOD = 500
     VAL.TYPE = 'MixDataset'
 #     VAL.DATASETS = ['BSDS100']
     VAL.DATASETS = ['FASTMRI']

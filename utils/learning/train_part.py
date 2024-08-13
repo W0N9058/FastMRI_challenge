@@ -25,7 +25,7 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type, augmentor
     len_loader = len(data_loader)
     total_loss = 0.
     
-    print(f'Training epoch: {epoch}')  # 디버깅 출력 추가
+#     print(f'Training epoch: {epoch}')  # 디버깅 출력 추가
 
     for iter, data in enumerate(data_loader):
         mask, kspace, target, maximum, _, _ = data
@@ -42,7 +42,7 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type, augmentor
             augmentor.set_epoch(epoch)
             kspace, target = augmentor(kspace, target.shape[-2:])
             target = target.cuda(non_blocking=True)  # augmentor로 반환된 target을 GPU로 옮깁니다.
-            augmentor.print_epoch()
+#             augmentor.print_epoch()
             
 #         print(kspace.shape)
 #         print(target.shape)

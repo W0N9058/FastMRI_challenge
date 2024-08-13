@@ -41,14 +41,15 @@ class DATASET:
 
     FASTMRI = edict()
     FASTMRI.TRAIN = edict()
-    FASTMRI.TRAIN.HRx1 = '/home/Data/train/image'
-    FASTMRI.TRAIN.HRx2 = '/home/Data/train/image'
-    FASTMRI.TRAIN.HRx3 = '/home/Data/train/image'
-    FASTMRI.TRAIN.HRx4 = '/home/Data/train/image'
-    FASTMRI.TRAIN.LRx1 = '/home/Data/train/image'
-    FASTMRI.TRAIN.LRx2 = '/home/Data/train/image'
-    FASTMRI.TRAIN.LRx3 = '/home/Data/train/image'
-    FASTMRI.TRAIN.LRx4 = '/home/Data/train/image'
+#     FASTMRI.TRAIN.HRx1 = '/home/Data/train/image'
+    FASTMRI.TRAIN.HRx1 = '/root/result/test_Varnet/reconstructions_train'
+    FASTMRI.TRAIN.HRx2 = '/root/result/test_Varnet/reconstructions_train'
+    FASTMRI.TRAIN.HRx3 = '/root/result/test_Varnet/reconstructions_train'
+    FASTMRI.TRAIN.HRx4 = '/root/result/test_Varnet/reconstructions_train'
+    FASTMRI.TRAIN.LRx1 = '/root/result/test_Varnet/reconstructions_train'
+    FASTMRI.TRAIN.LRx2 = '/root/result/test_Varnet/reconstructions_train'
+    FASTMRI.TRAIN.LRx3 = '/root/result/test_Varnet/reconstructions_train'
+    FASTMRI.TRAIN.LRx4 = '/root/result/test_Varnet/reconstructions_train'
 
 #     # testing dataset
 #     BSDS100 = edict()
@@ -62,14 +63,15 @@ class DATASET:
 
 #     FASTMRI = edict()
     FASTMRI.VAL = edict()
-    FASTMRI.VAL.HRx1 = '/home/Data/val/image'
-    FASTMRI.VAL.HRx2 = '/home/Data/val/image'
-    FASTMRI.VAL.HRx3 = '/home/Data/val/image'
-    FASTMRI.VAL.HRx4 = '/home/Data/val/image'
-    FASTMRI.VAL.LRx1 = '/home/Data/val/image'
-    FASTMRI.VAL.LRx2 = '/home/Data/val/image'
-    FASTMRI.VAL.LRx3 = '/home/Data/val/image'
-    FASTMRI.VAL.LRx4 = '/home/Data/val/image'
+#     FASTMRI.VAL.HRx1 = '/home/Data/val/image'
+    FASTMRI.VAL.HRx1 = '/root/result/test_Varnet/reconstructions_val'
+    FASTMRI.VAL.HRx2 = '/root/result/test_Varnet/reconstructions_val'
+    FASTMRI.VAL.HRx3 = '/root/result/test_Varnet/reconstructions_val'
+    FASTMRI.VAL.HRx4 = '/root/result/test_Varnet/reconstructions_val'
+    FASTMRI.VAL.LRx1 = '/root/result/test_Varnet/reconstructions_val'
+    FASTMRI.VAL.LRx2 = '/root/result/test_Varnet/reconstructions_val'
+    FASTMRI.VAL.LRx3 = '/root/result/test_Varnet/reconstructions_val'
+    FASTMRI.VAL.LRx4 = '/root/result/test_Varnet/reconstructions_val'
 
 def get_dataset(config):
     dataset_type = config.TYPE

@@ -51,12 +51,12 @@ if __name__ == '__main__':
     
     model.G = model.G.to(device)
 
-    model_path = '/root/FastMRI_challenge/temp/Simple-SR-master/exps/BebyGAN/log/models/500_G.pth'
+    model_path = '/root/FastMRI_challenge/temp/Simple-SR-master/exps/BebyGAN/log/models/6000_G.pth'
     load_model(model.G, model_path, cpu=True)
 
     # Input and output directories
-    input_dir = '/root/result/test_Varnet/reconstructions_val/'
-    output_dir = '/root/result/test_Varnet/reconstructions_val_processed/'
+    input_dir = '/root/result/test_Varnet/reconstructions_leaderboard/'
+    output_dir = '/root/result/test_Varnet/reconstructions_leaderboard_processed/'
 
     os.makedirs(output_dir, exist_ok=True)
     

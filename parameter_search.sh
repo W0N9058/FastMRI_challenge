@@ -38,7 +38,7 @@ do
                 -e 3 \
                 -l 0.0001 \
                 -r 10 \
-                -n "test_Varnet_cascade${cascade}_chans${chans}_senschans${sens_chans}_aug${aug_schedule}_strength${aug_strength}" \
+                -n "test_Varnet" \
                 -t "/home/Data/train/" \
                 -v "/home/Data/val/" \
                 --cascade $cascade \
@@ -58,7 +58,7 @@ do
             cd "$FASTMRI_PATH"
             python reconstruct_modified.py \
                 -b 2 \
-                -n "test_Varnet_cascade${cascade}_chans${chans}_senschans${sens_chans}_aug${aug_schedule}_strength${aug_strength}" \
+                -n "test_Varnet" \
                 -p "/home/Data/leaderboard" \
                 --cascade $cascade \
                 --chans $chans \
@@ -68,7 +68,7 @@ do
             # 평가
             python leaderboard_eval_modified.py \
                 -lp "/home/Data/leaderboard" \
-                -yp "../result/test_Varnet_cascade${cascade}_chans${chans}_senschans${sens_chans}_aug${aug_schedule}_strength${aug_strength}/reconstructions_leaderboard/" \
+                -yp "../result/test_Varnet/reconstructions_leaderboard/" \
                 --log_file $LOG_FILE
 
             echo "Completed for Varnet cascade: $cascade, chans: $chans, sens_chans: $sens_chans, aug_schedule: $aug_schedule, aug_strength: $aug_strength" >> $LOG_FILE
@@ -81,7 +81,7 @@ do
             cd "$FASTMRI_PATH"
             python leaderboard_eval_modified.py \
                 -lp "/home/Data/leaderboard" \
-                -yp "../result/test_Varnet_cascade${cascade}_chans${chans}_senschans${sens_chans}_aug${aug_schedule}_strength${aug_strength}/reconstructions_leaderboard/" \
+                -yp "../result/test_Varnet_cascade/reconstructions_leaderboard_processed/" \
                 --log_file $LOG_FILE
 
             echo "Completed for Beby-GAN cascade: $cascade, chans: $chans, sens_chans: $sens_chans, aug_schedule: $aug_schedule, aug_strength: $aug_strength" >> $LOG_FILE

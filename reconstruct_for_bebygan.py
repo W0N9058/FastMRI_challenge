@@ -15,8 +15,8 @@ def parse():
     parser.add_argument('-n', '--net_name', type=Path, default='test_Varnet', help='Name of network')
     parser.add_argument('-p', '--path_data', type=Path, default='/home/Data/', help='Directory of test data')
     
-    parser.add_argument('--cascade', type=int, default=1, help='Number of cascades | Should be less than 12')
-    parser.add_argument('--chans', type=int, default=9, help='Number of channels for cascade U-Net')
+    parser.add_argument('--cascade', type=int, default=4, help='Number of cascades | Should be less than 12')
+    parser.add_argument('--chans', type=int, default=11, help='Number of channels for cascade U-Net')
     parser.add_argument('--sens_chans', type=int, default=4, help='Number of channels for sensitivity map U-Net')
     parser.add_argument("--input_key", type=str, default='kspace', help='Name of input key')
 
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     
     public_acc, private_acc = None, None
 
-    assert(len(os.listdir(args.path_data)) == 2)
+    # assert(len(os.listdir(args.path_data)) == 2)
 
     for acc in os.listdir(args.path_data):
         if acc in ['train']:

@@ -37,12 +37,12 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type, augmentor
 #         print(kspace.shape)
 #         print(target.shape)
                 
-         # Apply augmentation
-        if args.aug_on:
-            augmentor.set_epoch(epoch)
-            kspace, target = augmentor(kspace, target.shape[-2:])
-            target = target.cuda(non_blocking=True)  # augmentor로 반환된 target을 GPU로 옮깁니다.
-#             augmentor.print_epoch()
+#          # Apply augmentation
+#         if args.aug_on:
+#             augmentor.set_epoch(epoch)
+#             kspace, target = augmentor(kspace, target.shape[-2:])
+#             target = target.cuda(non_blocking=True)  # augmentor로 반환된 target을 GPU로 옮깁니다.
+# #             augmentor.print_epoch()
             
 #         print(kspace.shape)
 #         print(target.shape)

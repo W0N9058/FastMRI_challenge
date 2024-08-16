@@ -34,6 +34,7 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type, augmentor
         target = target.cuda(non_blocking=True)
         maximum = maximum.cuda(non_blocking=True)
         
+#         print("maximu : ",maximum)
 #         print(kspace.shape)
 #         print(target.shape)
                 

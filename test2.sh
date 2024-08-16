@@ -1,24 +1,18 @@
 #!/bin/bash
 
-LOG_FILE="result.log"
+LOG_FILE="augmentation.log"
 
 # 로그 파일 초기화
 echo "" > $LOG_FILE
 
 # 테스트할 조합
-combinations=(
-    "2 9 5"
-)
+combinations=("2 9 5") # test1에서 우세한 파라미터
 
 # aug_schedule 옵션
 aug_schedules=("constant" "ramp" "exp")
 
 # aug_strength 옵션
-aug_strengths=("0.0" "0.01" "0.1")
-
-# 작업 경로 설정
-FASTMRI_PATH="$HOME/FastMRI_challenge"
-BEBYGAN_PATH="$HOME/FastMRI_challenge/temp/Simple-SR-master/exps/BebyGAN"
+aug_strengths=("0.01" "0.1")
 
 for combo in "${combinations[@]}"
 do
@@ -45,19 +39,8 @@ do
                 --sens_chans $sens_chans \
                 --aug_schedule $aug_schedule \
                 --aug_strength $aug_strength
-                
-            # train에 대한 reconstruct 코드 실행
-            python reconstruct_for_bebygan.py
-                --cascade $cascade \
-                --chans $chans \
-                --sens_chans $sens_chans 
-
-            # Beby-Gan train 코드 실행
-            cd "$BEBYGAN_PATH"
-            python train.py
 
             # 재구성
-            cd "$FASTMRI_PATH"
             python reconstruct_modified.py \
                 -b 2 \
                 -n "test_Varnet" \
@@ -74,19 +57,6 @@ do
                 --log_file $LOG_FILE
 
             echo "Completed for Varnet cascade: $cascade, chans: $chans, sens_chans: $sens_chans, aug_schedule: $aug_schedule, aug_strength: $aug_strength" >> $LOG_FILE
-                
-            # Beby-Gan reconstruct 실행
-            cd "$BEBYGAN_PATH"
-            python reconstruct.py
-
-            # 평가
-            cd "$FASTMRI_PATH"
-            python leaderboard_eval_modified.py \
-                -lp "/home/Data/leaderboard" \
-                -yp "../result/test_Varnet/reconstructions_leaderboard_processed/" \
-                --log_file $LOG_FILE
-
-            echo "Completed for Beby-GAN cascade: $cascade, chans: $chans, sens_chans: $sens_chans, aug_schedule: $aug_schedule, aug_strength: $aug_strength" >> $LOG_FILE
             echo "=====================================" >> $LOG_FILE
         done
     done

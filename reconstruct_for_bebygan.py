@@ -15,9 +15,9 @@ def parse():
     parser.add_argument('-n', '--net_name', type=Path, default='test_Varnet', help='Name of network')
     parser.add_argument('-p', '--path_data', type=Path, default='/home/Data/', help='Directory of test data')
     
-    parser.add_argument('--cascade', type=int, default=4, help='Number of cascades | Should be less than 12')
-    parser.add_argument('--chans', type=int, default=11, help='Number of channels for cascade U-Net')
-    parser.add_argument('--sens_chans', type=int, default=4, help='Number of channels for sensitivity map U-Net')
+    parser.add_argument('--cascade', type=int, default=2, help='Number of cascades | Should be less than 12')
+    parser.add_argument('--chans', type=int, default=9, help='Number of channels for cascade U-Net')
+    parser.add_argument('--sens_chans', type=int, default=5, help='Number of channels for sensitivity map U-Net')
     parser.add_argument("--input_key", type=str, default='kspace', help='Name of input key')
 
     args = parser.parse_args()

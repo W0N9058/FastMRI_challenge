@@ -1,13 +1,13 @@
 #!/bin/bash
 
-LOG_FILE="bebygan.log"
+LOG_FILE="bebygan_lightweight.log"
 
 # 로그 파일 초기화
 echo "" > $LOG_FILE
 
 # 테스트할 조합
 combinations=(
-    "4 11 4"
+    "2 9 5"
 )
 
 # 작업 경로 설정

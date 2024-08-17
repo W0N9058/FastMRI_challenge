@@ -30,8 +30,8 @@ class Config:
     MODEL.G = edict()
     MODEL.G.IN_CHANNEL = 1
     MODEL.G.OUT_CHANNEL = 1
-    MODEL.G.N_CHANNEL = 8  # 64
-    MODEL.G.N_BLOCK = 1  # 23
+    MODEL.G.N_CHANNEL = 8  # init: 64, rrdb max: 8, ligtweight max: 16
+    MODEL.G.N_BLOCK = 4  # init: 23, rrdb max: 4, lightweight max: 8
     MODEL.G.N_GROWTH_CHANNEL = 32
     
     # discriminator
@@ -88,7 +88,7 @@ class Config:
     # both G and D
     SOLVER.WARM_UP_ITER = 2000
     SOLVER.WARM_UP_FACTOR = 0.1
-    SOLVER.T_PERIOD = [200000, 400000, 6000]
+    SOLVER.T_PERIOD = [200000, 400000, 20000]
     SOLVER.MAX_ITER = SOLVER.T_PERIOD[-1]
 
     # initialization
@@ -98,7 +98,7 @@ class Config:
     D_INIT_MODEL = None
 
     # log and save
-    LOG_PERIOD = 500
+    LOG_PERIOD = 20
     SAVE_PERIOD = 500
 
     # validation

@@ -28,7 +28,7 @@ def process_and_save_h5(model, input_h5_path, output_h5_path, device):
         with h5py.File(output_h5_path, 'w') as f:
             f.create_dataset('reconstruction', data=processed_data)
             
-        print(f'Saved processed data to {output_h5_path}')
+        # print(f'Saved processed data to {output_h5_path}')
 
 def process_directory(model, input_dir, output_dir, device):
     # Ensure the output directory exists
@@ -39,7 +39,7 @@ def process_directory(model, input_dir, output_dir, device):
             input_h5_path = os.path.join(input_dir, file_name)
             output_h5_path = os.path.join(output_dir, file_name)
             
-            print(f'Processing file: {input_h5_path}')
+            # print(f'Processing file: {input_h5_path}')
             process_and_save_h5(model, input_h5_path, output_h5_path, device)
 
 if __name__ == '__main__':
@@ -56,7 +56,7 @@ if __name__ == '__main__':
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.G = model.G.to(device)
 
-    model_path = '/root/FastMRI_challenge/temp/Simple-SR-master/exps/BebyGAN/log/models/6000_G.pth'
+    model_path = '/root/FastMRI_challenge/temp/Simple-SR-master/exps/BebyGAN/log/models/20000_G.pth'
     load_model(model.G, model_path, cpu=True)
 
     # Input and output directories

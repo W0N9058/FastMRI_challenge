@@ -2,7 +2,7 @@
 PYTHON_SCRIPT="train.py"
 
 # 출력을 저장할 파일 이름
-OUTPUT_FILE="output.log"
+OUTPUT_FILE="lightWeightNet.log"
 
 # Python 스크립트를 실행하고 출력을 파일로 저장
 python $PYTHON_SCRIPT > $OUTPUT_FILE 2>&1

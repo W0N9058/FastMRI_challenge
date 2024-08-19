@@ -34,18 +34,35 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type, augmentor
         target = target.cuda(non_blocking=True)
         maximum = maximum.cuda(non_blocking=True)
         
-#         print(kspace.shape)
-#         print(target.shape)
-                
-         # Apply augmentation
-        if args.aug_on:
+#         print("maximu : ",maximum)
+#         print("before kspace.shape : ", kspace.shape)
+#         print("before target.shape : ", target.shape)
+        
+#         max_value = torch.max(target)
+#         print("Max pixel value in target image before: ", max_value.item())
+#         min_value = torch.min(target)
+#         print("Min pixel value in target image before: ", min_value.item())
+#         print(epoch)
+        
+#         if epoch == 0:
+#             print("no aug")
+        
+        # Apply augmentation
+        # 일단은 epoch가 0이면 작동하지 않도록 만듬!, 참고로 epoch는 0부터 시작해서 하나 작게 끝남
+        if args.aug_on and epoch != 0:
             augmentor.set_epoch(epoch)
             kspace, target = augmentor(kspace, target.shape[-2:])
             target = target.cuda(non_blocking=True)  # augmentor로 반환된 target을 GPU로 옮깁니다.
+            kspace = kspace.cuda(non_blocking=True)
 #             augmentor.print_epoch()
             
-#         print(kspace.shape)
-#         print(target.shape)
+#         print("after kspace.shape : ", kspace.shape)
+#         print("after target.shape : ", target.shape)
+        
+#         max_value = torch.max(target)
+#         print("Max pixel value in target image after: ", max_value.item())
+#         min_value = torch.min(target)
+#         print("Min pixel value in target image after: ", min_value.item())
 
 
         output = model(kspace, mask)

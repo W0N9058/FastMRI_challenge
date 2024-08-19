@@ -1,11 +1,12 @@
+numpy
+h5py
+scikit-image
+fastmri
 easydict
 future
 matplotlib
-numpy
 opencv-python==4.8.0.74
-scikit-image
 scipy
 torch>=1.2
 torchvision
 tensorboardX
-h5py

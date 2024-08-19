@@ -269,7 +269,7 @@ class DataAugmentor:
             p = 0.0
         
         # Augment if needed
-        if self.aug_on and p > 0.0:
+        if self.aug_on and p > 0.00001:
             kspace_list = []
             target_list = []
             for i in range(batch_size):
@@ -343,7 +343,7 @@ class DataAugmentor:
         parser.add_argument(
             '--aug_strength', 
             type=float, 
-            default=10.0, 
+            default=1.0, 
             help='Augmentation strength, combined with --aug_schedule determines the augmentation strength in each epoch'
         )
         parser.add_argument(
@@ -411,19 +411,19 @@ class DataAugmentor:
         parser.add_argument(
             '--aug_weight_rot90', 
             type=float, 
-            default=1.0, 
+            default=0.0, 
             help='Weight of probability of rotation by multiples of 90 degrees. Augmentation probability will be multiplied by this constant'
         )  
         parser.add_argument(
             '--aug_weight_fliph', 
             type=float,
-            default=1.0, 
+            default=0.0, 
             help='Weight of horizontal flip probability. Augmentation probability will be multiplied by this constant'
         )
         parser.add_argument(
             '--aug_weight_flipv',
             type=float,
-            default=1.0, 
+            default=0.0, 
             help='Weight of vertical flip probability. Augmentation probability will be multiplied by this constant'
         ) 
 
@@ -445,19 +445,19 @@ class DataAugmentor:
         parser.add_argument(
             '--aug_max_rotation', 
             type=float, 
-            default=180., 
+            default=10., 
             help='Maximum rotation applied in either clockwise or counter-clockwise direction in degrees.'
         )
         parser.add_argument(
             '--aug_max_shearing_x', 
             type=float, 
-            default=15.0, 
+            default=1.0, 
             help='Maximum shearing applied in either positive or negative direction in degrees along x axis.'
         )
         parser.add_argument(
             '--aug_max_shearing_y', 
             type=float, 
-            default=15.0, 
+            default=1.0, 
             help='Maximum shearing applied in either positive or negative direction in degrees along y axis.'
         )
         parser.add_argument(

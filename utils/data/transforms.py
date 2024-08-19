@@ -40,10 +40,10 @@ def to_tensor(data):
 
 class DataTransform:
     def __init__(self, isforward, max_key, augmentor=None):
+=======
+>>>>>>> 5e92c47a359dbb44e7325e6a002ad941b6740c54
         self.isforward = isforward
         self.max_key = max_key
-        self.augmentor = augmentor
-        
     def __call__(self, mask, input, target, attrs, fname, slice):
         if not self.isforward:
             target = to_tensor(target)
@@ -55,6 +55,7 @@ class DataTransform:
         kspace = to_tensor(input * mask)
         kspace = torch.stack((kspace.real, kspace.imag), dim=-1)
         mask = torch.from_numpy(mask.reshape(1, 1, kspace.shape[-2], 1).astype(np.float32)).byte()
+<<<<<<< HEAD
         
         if self.augmentor:
             # kspace = self.augmentor(kspace, target.size())
@@ -68,4 +69,3 @@ def get_augmentor(args, current_epoch_fn):
     return DataAugmentor(args, current_epoch_fn)
 
 """
-

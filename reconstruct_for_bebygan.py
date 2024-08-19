@@ -41,6 +41,8 @@ if __name__ == '__main__':
     
     public_acc, private_acc = None, None
 
+    # assert(len(os.listdir(args.path_data)) == 2)
+
     for acc in os.listdir(args.path_data):
         if acc in ['train']:
             public_acc = acc

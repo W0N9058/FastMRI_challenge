@@ -17,8 +17,17 @@ def process_and_save_h5(model, input_h5_path, output_h5_path, device):
             
             for i in range(recon_data.shape[0]):
                 lr_img = torch.tensor(recon_data[i:i+1, :, :]).unsqueeze(0).to(device)  # Add batch and channel dims
+                # print("lr_img max value:", lr_img.max().item())
+                # print("lr_img min value:", lr_img.min().item())
+
+                # 여기 과정에서 문제발생
                 output = model.G(lr_img)
-                output_img = tensor2img(output).astype(np.float32)
+                
+                output_img = tensor2img(output)
+                # output_img = output.squeeze(0).cpu().numpy()  # float32로 직접 변환
+
+                print("output_img max value:", output_img.max().item())
+                print("output_img min value:", output_img.min().item())
                 
                 processed_data.append(output_img)
             
@@ -56,7 +65,7 @@ if __name__ == '__main__':
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.G = model.G.to(device)
 
-    model_path = '/root/FastMRI_challenge/temp/Simple-SR-master/exps/BebyGAN/log/models/20000_G.pth'
+    model_path = '/root/FastMRI_challenge/temp/Simple-SR-master/exps/BebyGAN/log/models/5000_G.pth'
     load_model(model.G, model_path, cpu=True)
 
     # Input and output directories

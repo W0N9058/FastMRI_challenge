@@ -19,10 +19,10 @@ def validate(model, val_loader, config, device, iteration, save_path='.'):
             hr_img = hr_img.to(device)
             
             
-#             print("lr_img pixel max:", np.max(tensor2img(lr_img)))
-#             print("lr_img pixel min:", np.min(tensor2img(lr_img)))
-#             print("hr_img pixel max:", np.max(tensor2img(hr_img)))
-#             print("hr_img pixel min:", np.min(tensor2img(hr_img)))
+            print("lr_img pixel max:", np.max(tensor2img(lr_img)))
+            print("lr_img pixel min:", np.min(tensor2img(lr_img)))
+            print("hr_img pixel max:", np.max(tensor2img(hr_img)))
+            print("hr_img pixel min:", np.min(tensor2img(hr_img)))
             
 #             print("lr_img.shape", lr_img.shape)
             # (1, 1, 384, 384)
@@ -33,10 +33,10 @@ def validate(model, val_loader, config, device, iteration, save_path='.'):
             output = tensor2img(output)
             gt = tensor2img(hr_img) 
             
-#             print("output pixel max:", np.max(output))
-#             print("output pixel min:", np.min(output))
-#             print("gt pixel max:", np.max(gt))
-#             print("gt pixel min:", np.min(gt))
+            # print("output pixel max:", np.max(output))
+            # print("output pixel min:", np.min(output))
+            # print("gt pixel max:", np.max(gt))
+            # print("gt pixel min:", np.min(gt))
             
 #             print("gt.shape", gt.shape)
 
@@ -61,11 +61,23 @@ def validate(model, val_loader, config, device, iteration, save_path='.'):
 #                 gt = gt[cb:-cb, cb:-cb]
 #             print("gt.shape", gt.shape)
 #             print("output.shape", output.shape)
+
+            print("output pixel max:", np.max(output))
+            print("output pixel min:", np.min(output))
+            print("gt pixel max:", np.max(gt))
+            print("gt pixel min:", np.min(gt))
+
             
             psnr = calculate_psnr(output * 255, gt * 255)
             ssim = calculate_ssim(output * 255, gt * 255)
+            # psnr = calculate_psnr(output, gt)
+            # ssim = calculate_ssim(output, gt)
+            
             psnr_l.append(psnr)
             ssim_l.append(ssim)
+
+            print("psnr: ", psnr)
+            print("ssim: ", ssim)
 
         avg_psnr = sum(psnr_l) / len(psnr_l)
         avg_ssim = sum(ssim_l) / len(ssim_l)
@@ -81,7 +93,7 @@ if __name__ == '__main__':
     from utils.model_opr import load_model
 
     config.VAL.DATASETS = ['FASTMRI']
-    config.VAL.SAVE_IMG = True
+    config.VAL.SAVE_IMG = False
 
     model = Network(config)
     
@@ -93,10 +105,10 @@ if __name__ == '__main__':
     
     model.G = model.G.to(device)
 
-    model_path = '/root/FastMRI_challenge/temp/Simple-SR-master/exps/BebyGAN/log/models/500_G.pth'
+    model_path = '/root/FastMRI_challenge/temp/Simple-SR-master/exps/BebyGAN/log/models/5000_G.pth'
     load_model(model.G, model_path, cpu=True)
 
     val_dataset = get_dataset(config.VAL)
     val_loader = dataloader.val_loader(val_dataset, config, 0, 1)
-    psnr, ssim = validate(model, val_loader, config, device, 0, save_path='/root/FastMRI_challenge/temp/test')
+    psnr, ssim = validate(model, val_loader, config, device, 0, save_path='/root/FastMRI_challenge/temp/Simple-SR-master/test')
     print('PSNR: %.4f, SSIM: %.4f' % (psnr, ssim))

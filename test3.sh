@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOG_FILE="bebygan_lightweight.log"
+LOG_FILE="bebygan.log"
 
 # 로그 파일 초기화
 echo "" > $LOG_FILE
@@ -22,23 +22,23 @@ do
     sens_chans=${params[2]}
 
     # 모델 학습
-    python train.py \
-        -b 1 \
-        -e 3 \
-        -l 0.0001 \
-        -r 10 \
-        -n "test_Varnet" \
-        -t "/home/Data/train/" \
-        -v "/home/Data/val/" \
-        --cascade $cascade \
-        --chans $chans \
-        --sens_chans $sens_chans
+    # python train.py \
+    #     -b 1 \
+    #     -e 3 \
+    #     -l 0.0001 \
+    #     -r 10 \
+    #     -n "test_Varnet" \
+    #     -t "/home/Data/train/" \
+    #     -v "/home/Data/val/" \
+    #     --cascade $cascade \
+    #     --chans $chans \
+    #     --sens_chans $sens_chans
 
     # train에 대한 reconstruct 코드 실행
-    python reconstruct_for_bebygan.py \
-        --cascade $cascade \
-        --chans $chans \
-        --sens_chans $sens_chans
+    # python reconstruct_for_bebygan.py \
+    #     --cascade $cascade \
+    #     --chans $chans \
+    #     --sens_chans $sens_chans
 
     # Beby-Gan train 코드 실행
     cd "$BEBYGAN_PATH"

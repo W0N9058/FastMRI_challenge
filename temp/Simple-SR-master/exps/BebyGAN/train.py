@@ -149,16 +149,20 @@ def main():
     
             gen_loss = 0.0
             recon_loss = model.recon_loss_weight * model.recon_criterion(output, hr_img)
+            loss_dict['G_REC'] = recon_loss  # 추가: 재구성 손실을 loss_dict에 추가
             gen_loss += recon_loss
     
             bp_loss = model.bp_loss_weight * model.bp_criterion(bp_lr_img, lr_img)
+            loss_dict['G_BP'] = bp_loss  # 추가: 백 프로젝션 손실을 loss_dict에 추가
             gen_loss += bp_loss
     
             if iteration > config.SOLVER.G_PREPARE_ITER:
                 if model.use_pcp:
                     pcp_loss, style_loss, _ = model.pcp_criterion(output, hr_img)
+                    loss_dict['G_PCP'] = model.pcp_loss_weight * pcp_loss  # 추가: PCP 손실을 loss_dict에 추가
                     gen_loss += model.pcp_loss_weight * pcp_loss
                     if style_loss is not None:
+                        loss_dict['G_STY'] = model.style_loss_weight * style_loss  # 추가: 스타일 손실을 loss_dict에 추가
                         gen_loss += model.style_loss_weight * style_loss
     
                 gen_real = model.D(hr_det).detach()
@@ -166,6 +170,7 @@ def main():
                 gen_real_loss = model.adv_criterion(gen_real - torch.mean(gen_fake), False, is_disc=False) * 0.5
                 gen_fake_loss = model.adv_criterion(gen_fake - torch.mean(gen_real), True, is_disc=False) * 0.5
                 gen_adv_loss = model.adv_loss_weight * (gen_real_loss + gen_fake_loss)
+                loss_dict['G_ADV'] = gen_adv_loss  # 추가: 생성자 적대적 손실을 loss_dict에 추가
                 gen_loss += gen_adv_loss
     
         scaler.scale(gen_loss).backward()

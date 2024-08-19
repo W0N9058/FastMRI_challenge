@@ -10,7 +10,7 @@ combinations=(
     "2 9 5"
 )
 
-# 작업 경로 설정
+# # 작업 경로 설정
 FASTMRI_PATH="$HOME/FastMRI_challenge"
 BEBYGAN_PATH="$HOME/FastMRI_challenge/temp/Simple-SR-master/exps/BebyGAN"
 
@@ -21,28 +21,28 @@ do
     chans=${params[1]}
     sens_chans=${params[2]}
 
-    # Beby-Gan train 코드 실행
-    cd "$BEBYGAN_PATH"
-    python train.py
+    # # Beby-Gan train 코드 실행
+    # cd "$BEBYGAN_PATH"
+    # python train.py
 
-    # 재구성
-    cd "$FASTMRI_PATH"
-    python reconstruct_modified.py \
-        -b 2 \
-        -n "test_Varnet" \
-        -p "/home/Data/leaderboard" \
-        --cascade $cascade \
-        --chans $chans \
-        --sens_chans $sens_chans \
-        --log_file $LOG_FILE
+    # # 재구성
+    # cd "$FASTMRI_PATH"
+    # python reconstruct_modified.py \
+    #     -b 2 \
+    #     -n "test_Varnet" \
+    #     -p "/home/Data/leaderboard" \
+    #     --cascade $cascade \
+    #     --chans $chans \
+    #     --sens_chans $sens_chans \
+    #     --log_file $LOG_FILE
 
-    # 평가
-    python leaderboard_eval_modified.py \
-        -lp "/home/Data/leaderboard" \
-        -yp "../result/test_Varnet/reconstructions_leaderboard/" \
-        --log_file $LOG_FILE
+    # # 평가
+    # python leaderboard_eval_modified.py \
+    #     -lp "/home/Data/leaderboard" \
+    #     -yp "../result/test_Varnet/reconstructions_leaderboard/" \
+    #     --log_file $LOG_FILE
 
-    echo "Completed for Varnet cascade: $cascade, chans: $chans, sens_chans: $sens_chans" >> $LOG_FILE
+    # echo "Completed for Varnet cascade: $cascade, chans: $chans, sens_chans: $sens_chans" >> $LOG_FILE
                 
     # Beby-Gan reconstruct 실행
     cd "$BEBYGAN_PATH"

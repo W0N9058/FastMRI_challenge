@@ -52,6 +52,7 @@ class MixDataset(Dataset):
                 if lr_file.endswith('.h5'):
                     with h5py.File(os.path.join(lr_path, lr_file), 'r') as f:
                         lr_images = f['reconstruction'][:]  # Load LR images from 'image_grappa' dataset
+                        # lr_images = f['image_grappa'][:]
                         for i in range(lr_images.shape[0]):
                             self.lr_list.append(lr_images[i])
 
@@ -127,10 +128,14 @@ class MixDataset(Dataset):
         # numpy array to tensor, [0, 255] to [0, 1]
 #         img_lr = torch.from_numpy(img_lr).float() / self.value_range
 #         img_hr = torch.from_numpy(img_hr).float() / self.value_range
-        img_lr = torch.from_numpy(img_lr).float() * 1024.0
-        img_hr = torch.from_numpy(img_hr).float() * 1024.0
+        # img_lr = torch.from_numpy(img_lr).float() * 1024.0
+        # img_hr = torch.from_numpy(img_hr).float() * 1024.0
+
+        img_lr = torch.from_numpy(img_lr).float() 
+        img_hr = torch.from_numpy(img_hr).float() 
         
-#         print("lr_img pixel max:", torch.max(img_lr))
+        print(f"lr_img pixel max (Torch): {torch.max(img_lr):.10f}")
+        print(f"lr_img pixel min (Torch): {torch.min(img_lr):.10f}")
 
         return img_lr, img_hr
 

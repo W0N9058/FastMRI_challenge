@@ -49,35 +49,72 @@ def init_random_seed(seed=0):
     torch.cuda.manual_seed_all(seed)
 
 
-def tensor2img(tensor, out_type=np.uint8, min_max=(0, 1)):
-    # 4D: grid (B, C, H, W), 3D: (C, H, W), 2D: (H, W)
-    tensor = tensor.squeeze().float().cpu().clamp_(*min_max)
-    tensor = (tensor - min_max[0]) / (min_max[1] - min_max[0])
+# def tensor2img(tensor, out_type=np.uint8, min_max=(0, 1)):
+#     # 4D: grid (B, C, H, W), 3D: (C, H, W), 2D: (H, W)
+#     tensor = tensor.squeeze().float().cpu().clamp_(*min_max)
+#     tensor = (tensor - min_max[0]) / (min_max[1] - min_max[0])
+    
+#     n_dim = tensor.dim()
+#     if n_dim == 4:
+#         n_img = len(tensor)
+#         img_np = make_grid(tensor, nrow=int(math.sqrt(n_img)), padding=0, normalize=False).numpy()
+#         img_np = np.transpose(img_np[[2, 1, 0], :, :], (1, 2, 0))
+#     elif n_dim == 3:
+#         img_np = tensor.numpy()
+#         img_np = np.transpose(img_np[[2, 1, 0], :, :], (1, 2, 0))
+#     elif n_dim == 2:
+#         img_np = tensor.numpy()
+#     else:
+#         raise TypeError(
+#             'Only support 4D, 3D and 2D tensor. But received with dimension: {:d}'.format(n_dim))
 
+#     if out_type == np.uint8:
+#         img_np = (img_np * 255.0).round()
+
+#     return img_np.astype(out_type)
+
+def tensor2img(tensor, out_type=np.float32):
+    # 4D: (B, C, H, W), 3D: (C, H, W), 2D: (H, W)
+    tensor = tensor.squeeze().float().cpu()
+    # print("tensor.shape:", tensor.shape)
+    # 최대값과 최소값 출력
+    # print("Tensor max value:", tensor.max().item())
+    # print("Tensor min value:", tensor.min().item())
+    
     n_dim = tensor.dim()
-    if n_dim == 4:
-        n_img = len(tensor)
-        img_np = make_grid(tensor, nrow=int(math.sqrt(n_img)), padding=0, normalize=False).numpy()
-        img_np = np.transpose(img_np[[2, 1, 0], :, :], (1, 2, 0))
-    elif n_dim == 3:
-        img_np = tensor.numpy()
-        img_np = np.transpose(img_np[[2, 1, 0], :, :], (1, 2, 0))
-    elif n_dim == 2:
-        img_np = tensor.numpy()
-    else:
-        raise TypeError(
-            'Only support 4D, 3D and 2D tensor. But received with dimension: {:d}'.format(n_dim))
+    # print("n_dim: ", n_dim)
 
-    if out_type == np.uint8:
-        img_np = (img_np * 255.0).round()
+    if n_dim == 4:
+        # Assuming 4D tensor is in (B, C, H, W) format
+        n_img = len(tensor)
+        img_np = tensor.numpy()
+        img_np = np.transpose(img_np, (0, 2, 3, 1))  # (B, C, H, W) -> (B, H, W, C)
+        # print("n_dim==4")
+    elif n_dim == 3:
+        # Assuming 3D tensor is in (C, H, W) format
+        img_np = tensor.numpy()
+        img_np = np.transpose(img_np, (1, 2, 0))  # (C, H, W) -> (H, W, C)
+        # print("n_dim==3")
+    elif n_dim == 2:
+        # 실제 작동시 돌아가는 부분
+        # 2D tensor is already in (H, W) format for grayscale
+        img_np = tensor.numpy()
+        # print("Numpy array max value:", np.max(img_np))
+        # print("Numpy array min value:", np.min(img_np))
+        # print("n_dim==2")
+    else:
+        raise TypeError('Only support 4D, 3D and 2D tensor. But received with dimension: {:d}'.format(n_dim))
+
+    # If the image is grayscale (single channel), ensure it remains 2D
+    if img_np.shape[-1] == 1:
+        img_np = img_np[..., 0]  # Remove the last channel dimension if it's 1
 
     return img_np.astype(out_type)
 
-
 def calculate_psnr(img1, img2):
     # img1 and img2 have range [0, 255]
-    img1 = img1.astype(np.float64)
-    img2 = img2.astype(np.float64)
+    img1 = img1.astype(np.float32)
+    img2 = img2.astype(np.float32)
     mse = np.mean((img1 - img2) ** 2)
     if mse == 0:
         return float('inf')
@@ -89,8 +126,10 @@ def calculate_ssim(img1, img2):
     C1 = (0.01 * 255) ** 2
     C2 = (0.03 * 255) ** 2
 
-    img1 = img1.astype(np.float64)
-    img2 = img2.astype(np.float64)
+    # img1 = img1.astype(np.float64)
+    # img2 = img2.astype(np.float64)
+    img1 = img1.astype(np.float32)
+    img2 = img2.astype(np.float32)
     kernel = cv2.getGaussianKernel(11, 1.5)
     window = np.outer(kernel, kernel.transpose())
 

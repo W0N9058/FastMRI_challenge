@@ -269,7 +269,7 @@ class DataAugmentor:
             p = 0.0
         
         # Augment if needed
-        if self.aug_on and p > 0.0:
+        if self.aug_on and p > 0.00001:
             kspace_list = []
             target_list = []
             for i in range(batch_size):

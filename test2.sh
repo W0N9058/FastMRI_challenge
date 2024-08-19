@@ -6,13 +6,13 @@ LOG_FILE="augmentation.log"
 echo "" > $LOG_FILE
 
 # 테스트할 조합
-combinations=("2 9 5") # test1에서 우세한 파라미터
+combinations=("4 11 4") # test1에서 우세한 파라미터
 
 # aug_schedule 옵션
-aug_schedules=("constant" "ramp" "exp")
+aug_schedules=("exp" "ramp" "constant")
 
 # aug_strength 옵션
-aug_strengths=("0.01" "0.1")
+aug_strengths=("10.0" "100.0")
 
 for combo in "${combinations[@]}"
 do

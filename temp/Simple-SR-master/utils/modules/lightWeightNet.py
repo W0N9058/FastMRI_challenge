@@ -77,16 +77,21 @@ class WeightNet(nn.Module):
     def __init__(self, config):
         super(WeightNet, self).__init__()
 
-        in_chl = config.IN_CHANNEL
-        nf = config.N_CHANNEL
-        n_block = config.RES_BLOCK
-        out_chl = config.N_WEIGHT
-        scale = config.SCALE
+        # config.MODEL.G에서 속성을 가져옵니다.
+        in_chl = config.MODEL.G.IN_CHANNEL
+        nf = config.MODEL.G.N_CHANNEL
+        n_block = config.MODEL.G.N_BLOCK
+        out_chl = config.MODEL.G.OUT_CHANNEL  # 혹은 N_WEIGHT
+        scale = config.MODEL.SCALE
 
         act = nn.ReLU(inplace=True)
         wn = lambda x: nn.utils.weight_norm(x)
 
-        rgb_mean = torch.FloatTensor([0.4488, 0.4371, 0.4040]).view([1, 3, 1, 1]) 
+        # rgb_mean = torch.FloatTensor([0.4488, 0.4371, 0.4040]).view([1, 3, 1, 1]) 
+        # self.register_buffer('rgb_mean', rgb_mean)
+
+        # 흑백 이미지의 평균 (1채널)으로 설정
+        rgb_mean = torch.FloatTensor([0.5]).view([1, 1, 1, 1])
         self.register_buffer('rgb_mean', rgb_mean)
 
         self.head = nn.Sequential(

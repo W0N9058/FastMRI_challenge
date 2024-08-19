@@ -7,19 +7,23 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from utils.modules.rrdb import RRDBNet
+# from utils.modules.rrdb import RRDBNet
+from utils.modules.lightWeightNet import WeightNet
 from utils.loss import AdversarialLoss, PerceptualLoss, BBL
 from utils.modules.discriminator import Discriminator_VGG_384
 
+# class Generator(RRDBNet):
+#     def __init__(self, config):
+#         super(Generator, self).__init__(in_nc=config.MODEL.G.IN_CHANNEL,
+#                                         out_nc=config.MODEL.G.OUT_CHANNEL,
+#                                         nf=config.MODEL.G.N_CHANNEL,
+#                                         nb=config.MODEL.G.N_BLOCK,
+#                                         gc=config.MODEL.G.N_GROWTH_CHANNEL)
 
-class Generator(RRDBNet):
+# RRDBNet 대신 더 가벼운 WeightNet을 생성자 사용
+class Generator(WeightNet):
     def __init__(self, config):
-        super(Generator, self).__init__(in_nc=config.MODEL.G.IN_CHANNEL,
-                                        out_nc=config.MODEL.G.OUT_CHANNEL,
-                                        nf=config.MODEL.G.N_CHANNEL,
-                                        nb=config.MODEL.G.N_BLOCK,
-                                        gc=config.MODEL.G.N_GROWTH_CHANNEL)
-
+        super(Generator, self).__init__(config)
 
 class Discriminator(Discriminator_VGG_384): #192
     def __init__(self, config):

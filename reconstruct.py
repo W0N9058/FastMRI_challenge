@@ -44,13 +44,13 @@ if __name__ == '__main__':
     
     # Public Acceleration
     args.data_path = args.path_data / public_acc # / "kspace"    
-    args.forward_dir = '../result' / args.net_name / 'reconstructions_leaderboard' / 'public'
+    args.forward_dir = '../result' / args.net_name / 'reconstructions_leaderboard_processing' / 'public'
     print(f'Saved into {args.forward_dir}')
     forward(args)
     
     # Private Acceleration
     args.data_path = args.path_data / private_acc # / "kspace"    
-    args.forward_dir = '../result' / args.net_name / 'reconstructions_leaderboard' / 'private'
+    args.forward_dir = '../result' / args.net_name / 'reconstructions_leaderboard_processing' / 'private'
     print(f'Saved into {args.forward_dir}')
     forward(args)
     

@@ -26,8 +26,8 @@ def process_and_save_h5(model, input_h5_path, output_h5_path, device):
                 output_img = tensor2img(output)
                 # output_img = output.squeeze(0).cpu().numpy()  # float32로 직접 변환
 
-                print("output_img max value:", output_img.max().item())
-                print("output_img min value:", output_img.min().item())
+#                 print("output_img max value:", output_img.max().item())
+#                 print("output_img min value:", output_img.min().item())
                 
                 processed_data.append(output_img)
             
@@ -65,12 +65,12 @@ if __name__ == '__main__':
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.G = model.G.to(device)
 
-    model_path = '/root/FastMRI_challenge/temp/Simple-SR-master/exps/BebyGAN/log/models/5000_G.pth'
+    model_path = '/root/FastMRI_challenge/temp/Simple-SR-master/exps/BebyGAN/log/models/20000_G.pth'
     load_model(model.G, model_path, cpu=True)
 
     # Input and output directories
-    input_base_dir = '/root/result/test_Varnet/reconstructions_leaderboard/'
-    output_base_dir = '/root/result/test_Varnet/reconstructions_leaderboard_processed/'
+    input_base_dir = '/root/result/test_Varnet/reconstructions_leaderboard_processing/'
+    output_base_dir = '/root/result/test_Varnet/reconstructions_leaderboard/'
 
     # Process the private and public directories
     for subfolder in ['private', 'public']:
